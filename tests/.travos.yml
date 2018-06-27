@@ -1,0 +1,9 @@
+language: c
+sudo: false
+script:
+  - gcc src/*.c -I include -lcriterion --coverage -o codecov
+  - ./codecov
+  - gcov src/*.c
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
