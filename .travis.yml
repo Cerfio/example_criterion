@@ -1,9 +1,9 @@
 language: c
 sudo: false
 script:
-  - gcc src/*.c -I include -lcriterion --coverage -o codecov
+  - gcc tests/src/*.c -I tests/include -lcriterion --coverage -o codecov
   - ./codecov
-  - gcov src/*.c
+  - gcov tests/src/*.c
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
