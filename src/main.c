@@ -3,11 +3,13 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <time.h> 
 
 typedef struct {
 	char *word;
 	char *hide_word;
 	int life;
+	clock_t time;
 }game_t;
 
 game_t initialize_game(const char *word)
@@ -22,6 +24,7 @@ game_t initialize_game(const char *word)
 		game.hide_word[i] = '*';
 		i++;
 	}
+	game.time = clock();
 	return (game);
 }
 
@@ -61,6 +64,7 @@ int loop_game(game_t *game)
 		return (84);
 	puts(game->hide_word);
   	while  (game->life != 0) {
+		game->time = clock();
 		read(0, input, 1);
 		input[1] = '\0';
 		if (input[0] == '\n')
@@ -94,6 +98,7 @@ int main(int ac, char **av)
 	}
 	else
 		puts("Problem during program");
+	printf("Vous avez mis %f\n", (double)game.time/CLOCKS_PER_SEC);
 	free(game.hide_word);
 	return(return_function);
 }
